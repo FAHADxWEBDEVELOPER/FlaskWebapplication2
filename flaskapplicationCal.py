@@ -1,12 +1,14 @@
-#FlaskWebAppplicationDevelopment
-from flask import Flask , request
+from flask import Flask , render_template
 
 app =Flask(__name__)
 
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
 @app.route('/user/<name>')
 def user(name):
-    return '<h1>Hello, %s!</h1>' % name
-
+    return render_template('user.html', name=name)
 @app.route('/cal/<num1>/<op>/<num2>')
 def cal(num1, op, num2):
     n1= int(num1)
@@ -21,9 +23,8 @@ def cal(num1, op, num2):
         result= n1*n2
     elif op == "%":
         result= n1%n2
-    else:
-         print("Invalid Operator!")
-    return '<h1>The Result is %s!</h1>' %str(result)
+   
+    return '<h1>Result %s!</h1>' %str(result)
 
 if __name__== '__main__':
     app.run(debug=True)
